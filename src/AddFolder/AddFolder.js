@@ -6,6 +6,12 @@ import AppContext from '../AppContext'
 
 
 export default class AddFolder extends Component {
+  static defaultProps = {
+    history: {
+      push: () => {}
+    },
+  }
+
   static contextType = AppContext;
 
   constructor(props) {
@@ -61,7 +67,11 @@ export default class AddFolder extends Component {
       },
       body: JSON.stringify(newFolder)
     })
-      .then(() => this.props.history.push('/'))
+    .then(async (res) => {
+      const folder = await res.json();
+      this.context.onAddFolder(folder);
+      this.props.history.push('/');
+    })
       .catch(err => this.context.onError(err))
   }
 
@@ -70,12 +80,12 @@ export default class AddFolder extends Component {
     const newFolder = {
       id: this.context.genRandomId,
       name: this.state.folderName
-    }  
+    }
     // grab input
     this.addFolderApi(newFolder);
-    this.context.onAddFolder(newFolder)
+   
   }
-
+   
   render() {
     return (
       <section className='AddFolder'>
@@ -87,6 +97,7 @@ export default class AddFolder extends Component {
             </label>
             <input type='text' id='folder-name-input' onChange={ e => this.updateFolderName(e.target.value)}/>
           </div>
+          
           <ValidationError hasError={!this.state.folderNameValid} message={this.state.validationMessage}/>
           <div className='buttons'>
             <button type='submit' disabled={!this.state.folderNameValid}>

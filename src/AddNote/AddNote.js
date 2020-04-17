@@ -90,7 +90,10 @@ export default class AddNote extends Component {
       },
       body: JSON.stringify(newNote)
     })
-      .then(() => this.props.history.push('/'))
+    .then(async (res)=> {
+      const note = await res.json();
+      this.context.onAddNote(note);
+    })
       .catch(err => this.context.onError(err))
   }
 
@@ -116,7 +119,16 @@ export default class AddNote extends Component {
   }
 
   render() {
-    const { folders } = this.context
+    const { folders } = this.context;
+
+    console.log("folders value", folders);
+
+    let folderOptionsStr = "";
+    folders.forEach(folder => {
+
+      folderOptionsStr += '<option key="' + folder.id + '" value="' + folder.id + '">' + folder.name + '</option>';
+    });
+
     return (
       <section className='AddNote'>
         <h2>Create a note</h2>
@@ -140,11 +152,7 @@ export default class AddNote extends Component {
             </label>
             <select id='note-folder-select' onChange={ e => this.updateFolderId(e.target.value)}>
               <option value={''}>...</option>
-              {folders.map(folder =>
-                <option key={folder.id} value={folder.id}>
-                  {folder.name}
-                </option>
-              )}
+             {folderOptionsStr} 
             </select>
           </div>
           <ValidationError hasError={!this.state.folderValid} message={this.state.validationMessage.folder}/>
