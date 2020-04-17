@@ -62,6 +62,7 @@ export default class AddNote extends Component {
   }
   
   updateFolderId = (folderId) => {
+    console.log(folderId, 'updateFolderId')
     this.setState ({folderId}, () => this.validateFolderId(folderId));
   }
   validateFolderId(folderId) {
@@ -70,7 +71,7 @@ export default class AddNote extends Component {
     // regex for web safe characters ^[a-zA-Z0-9_-]*$
     let message = this.state.validationMessage.folder;
     let hasError = false;
-
+    console.log(folderId, 'folderId')
     if(folderId === null || folderId === "...") {
       message = 'Must choose an existing folder';
       hasError = true;
@@ -82,6 +83,7 @@ export default class AddNote extends Component {
   }
 
   addNoteApi = (newNote) => {
+    console.log('made it here')
     const BASEURL = "http://localhost:9090";
     fetch(BASEURL + '/notes', {
       method: 'POST',
@@ -92,12 +94,17 @@ export default class AddNote extends Component {
     })
     .then(async (res)=> {
       const note = await res.json();
+      console.log(note, 'note')
       this.context.onAddNote(note);
     })
-      .catch(err => this.context.onError(err))
+      .catch(err => {
+        console.log(err, 'err')
+        this.context.onError(err)
+      })
   }
 
   handleAddNote = (e) => {
+    console.log('did we make it?')
     e.preventDefault();
     const newNote = {
       id: this.context.genRandomId,
@@ -106,28 +113,26 @@ export default class AddNote extends Component {
       folderId: this.state.folderId,
       content: this.state.content
     }  
+    console.log(newNote, 'newNote')
     // grab input
     this.addNoteApi(newNote);
-    this.context.onAddNote(newNote);
+    
     // this.props.history.push('/');
   }
 
   formValid() {
+    console.log(this.state, 'state')
     this.setState({
-      formValid: this.state.noteNameValid && this.state.folderValid
+      formValid: true || this.state.noteNameValid && this.state.folderValid
     });
   }
 
   render() {
     const { folders } = this.context;
 
-    console.log("folders value", folders);
+    console.log(this.state.formValid, 'this.state.formValid');
 
-    let folderOptionsStr = "";
-    folders.forEach(folder => {
-
-      folderOptionsStr += '<option key="' + folder.id + '" value="' + folder.id + '">' + folder.name + '</option>';
-    });
+  
 
     return (
       <section className='AddNote'>
@@ -150,14 +155,18 @@ export default class AddNote extends Component {
             <label htmlFor='note-folder-select'>
               Folder
             </label>
-            <select id='note-folder-select' onChange={ e => this.updateFolderId(e.target.value)}>
-              <option value={''}>...</option>
-             {folderOptionsStr} 
+            <select id='note-folder-select' name='note-folder-id' onChange={e => this.updateFolderId(e.target.value)}>
+              <option value={null}>...</option>
+              {folders.map(folder =>
+                <option key={folder.id} value={folder.id}>
+                  {folder.name}
+                </option>
+              )}
             </select>
           </div>
           <ValidationError hasError={!this.state.folderValid} message={this.state.validationMessage.folder}/>
           <div className='buttons'>
-            <button type='submit' disabled={!this.state.formValid}>
+            <button type='submit' >
               Add note
             </button>
           </div>
@@ -166,3 +175,4 @@ export default class AddNote extends Component {
     )
   }
 }
+//disabled={!this.state.formValid}
