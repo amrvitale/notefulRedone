@@ -21,7 +21,7 @@ export default class NoteListMain extends React.Component {
             <li key={note.id}>
               <Note
                 match={this.props.match}
-                id={note.id}
+                id={note.id.toString()}
                 name={note.name}
                 modified={note.modified}
               />
