@@ -17,6 +17,7 @@ export default function NoteListNav() {
                 <NavLink
                   className='NoteListNav__folder-link'
                   to={`/folder/${folder.id}`}
+                  key={folder.id}
                 >
                   <span className='NoteListNav__num-notes'>
                     {countNotesForFolder(notes, folder.id)}

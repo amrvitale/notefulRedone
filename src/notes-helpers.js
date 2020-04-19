@@ -5,7 +5,7 @@ export const findFolder = (folders=[], folderId) =>
   //notes.find(note => note.id === noteId)
 
   export const findNote = (notes=[], noteId) =>
-  notes.find(note => note.id === noteId) || {}
+  notes.find(note => note.id.toString() === noteId.toString()) || {}
 //notes.find(note => note.id.toString() === noteId.toString())
 
 export const getNotesForFolder = (notes=[], folderId) => (
