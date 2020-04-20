@@ -24,6 +24,7 @@ export default class NoteListMain extends React.Component {
                 id={note.id.toString()}
                 name={note.name}
                 modified={note.modified}
+                onDelete={() => this.props.history.push('/')}
               />
             </li>
           )}

@@ -13,7 +13,7 @@ export default class Note extends React.Component {
     if (this.props.match.params.noteId) {
       this.context.onDeleteNote(this.props.id)
         .then(res => res.json())
-        .then(() => this.props.history.push('/'))
+        .then(() => this.props.onDelete())
         .then(() => this.context.updateNoteState(this.props.id))
     }
     else {
@@ -23,6 +23,7 @@ export default class Note extends React.Component {
     }
   }
   render() {
+    console.log(this.props)
       return (
       <div className='Note'>
         <h2 className='Note__title'>
@@ -54,3 +55,4 @@ Note.propTypes = {
   name: PropTypes.string.isRequired,
   modified: PropTypes.string.isRequired
 }
+

@@ -21,6 +21,8 @@ export default class NotePageMain extends Component {
           name={noteInfo.name}
           modified={noteInfo.modified}
           onDelete={() => this.props.history.push('/')}
+          match={this.props.match}
+          
         />
         <div className='NotePageMain__content'>
           {noteInfo.content && noteInfo.content.split(/\n \r|\n/).map((para, i) =>
