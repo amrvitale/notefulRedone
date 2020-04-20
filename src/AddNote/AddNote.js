@@ -95,6 +95,7 @@ export default class AddNote extends Component {
     .then(async (res)=> {
       const note = await res.json();
       console.log(note, 'note')
+      this.props.history.push('/')
       this.context.onAddNote(note);
     })
       .catch(err => {
