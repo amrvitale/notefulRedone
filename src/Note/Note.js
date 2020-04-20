@@ -21,6 +21,8 @@ export default class Note extends React.Component {
       .then(res => res.json())
       .then(() => this.context.updateNoteState(this.props.id))
     }
+    console.log(this.props.id)
+    console.log(typeof this.props.id)
   }
   render() {
     console.log(this.props)
