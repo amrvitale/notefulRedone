@@ -53,7 +53,7 @@ export default class AddFolder extends Component {
   }
 
   addFolderApi = (newFolder) => {
-    const BASEURL = "http://localhost:9090";
+    const BASEURL = "https://evening-dawn-21463.herokuapp.com/";
     fetch(BASEURL + '/folders', {
       method: 'POST',
       headers: {
