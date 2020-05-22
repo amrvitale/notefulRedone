@@ -84,7 +84,7 @@ export default class AddNote extends Component {
 
   addNoteApi = (newNote) => {
     console.log('made it here')
-    const BASEURL = "https://evening-dawn-21463.herokuapp.com/";
+    const BASEURL = "https://evening-dawn-21463.herokuapp.com";
     fetch(BASEURL + '/notes', {
       method: 'POST',
       headers: {
