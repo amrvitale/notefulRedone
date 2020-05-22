@@ -19,7 +19,7 @@ class App extends Component {
   };
 
   async componentDidMount() {
-    const BASEURL = "https://evening-dawn-21463.herokuapp.com";
+    const BASEURL = "https://evening-dawn-21463.herokuapp.com/api";
     const [folderRes, notesRes] = [await fetch(BASEURL+'/folders'), await fetch(BASEURL+'/notes')]
 
     try {
@@ -58,7 +58,7 @@ class App extends Component {
   }
 
   onDeleteNote = (noteId) => {
-    const BASEURL = "https://evening-dawn-21463.herokuapp.com";
+    const BASEURL = "https://evening-dawn-21463.herokuapp.com/api";
     return fetch(BASEURL+`/notes/${noteId}`, {method: "DELETE"})
   }
 
