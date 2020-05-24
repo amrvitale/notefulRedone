@@ -68,7 +68,6 @@ export default class AddFolder extends Component {
   handleAddFolder = (e) => {
     e.preventDefault();
     const newFolder = {
-      id: this.context.genRandomId(),
       name: this.state.folderName
       
     }  
