@@ -108,10 +108,9 @@ export default class AddNote extends Component {
     console.log('did we make it?')
     e.preventDefault();
     const newNote = {
-      id: this.context.genRandomId,
       name: this.state.noteName,
       modified: "2019-01-03T00:00:00.000Z",
-      folderId: this.state.folderId,
+      folder_id: this.state.folderId,
       content: this.state.content
     }  
     console.log(newNote, 'newNote')

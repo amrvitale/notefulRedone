@@ -79,6 +79,7 @@ class App extends Component {
   }
 
   onAddNote = (newNote) => {
+    console.log(newNote)
     this.setState({notes: [...this.state.notes, newNote]})
   }
 
