@@ -128,12 +128,13 @@ export default class AddNote extends Component {
       formValid: true || this.state.noteNameValid && this.state.folderValid
     });
   }
+  
+  
 
   render() {
     const { folders } = this.context;
 
     console.log(this.state.formValid, 'this.state.formValid');
-
   
 
     return (
@@ -166,6 +167,8 @@ export default class AddNote extends Component {
               )}
             </select>
           </div>
+          console.log(folder.id)
+          console.log('can you see this')
           <ValidationError hasError={!this.state.folderValid} message={this.state.validationMessage.folder}/>
           <div className='buttons'>
             <button type='submit' >
@@ -177,4 +180,6 @@ export default class AddNote extends Component {
     )
   }
 }
+
+
 //disabled={!this.state.formValid}
